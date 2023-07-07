@@ -48,12 +48,12 @@ public class PlayerAnimController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0)) //left click
+        if (Utilities.IsLeftClicking()) //left click
             weightValueLeft += (fingerMoveSpeed * Time.deltaTime);
         else
             weightValueLeft -= (fingerMoveSpeed * Time.deltaTime);
 
-        if (Input.GetMouseButton(1))
+        if (Utilities.IsRightClicking())
             weightValueRight += (fingerMoveSpeed * Time.deltaTime);
         else
             weightValueRight -= (fingerMoveSpeed * Time.deltaTime);
