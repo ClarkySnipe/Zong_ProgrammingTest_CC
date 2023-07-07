@@ -29,6 +29,9 @@ public class PlayerAnimController : MonoBehaviour
     [SerializeField] ChainIKConstraint rightMiddleFinger;
     [SerializeField] ChainIKConstraint rightIndxFinger;
     [SerializeField] ChainIKConstraint rightThumbFinger;
+
+    [Header("Animator Component")]
+    [SerializeField] Animator animator;
     #endregion
 
 
@@ -55,6 +58,10 @@ public class PlayerAnimController : MonoBehaviour
         else
             weightValueRight -= (fingerMoveSpeed * Time.deltaTime);
 
+        bool isAttacking = weightValueLeft > minLeftHandWeight || weightValueRight > minRightHandWeight; //if our weight value is above our minimum threshold - we are attackin.
+
+        SetAnimatorBool("isAttacking", isAttacking);
+
         weightValueLeft = Mathf.Clamp(weightValueLeft, minLeftHandWeight, maxLeftHandWeight);
         weightValueRight = Mathf.Clamp(weightValueRight, minRightHandWeight, maxRighttHandWeight);
 
@@ -65,5 +72,12 @@ public class PlayerAnimController : MonoBehaviour
         rightMiddleFinger.weight = weightValueRight;
         rightIndxFinger.weight = weightValueRight;
         rightThumbFinger.weight = weightValueRight;
+    }
+
+    public void SetAnimatorBool(string parameterName, bool value)
+    {
+        if (!animator) return;
+
+        animator.SetBool(parameterName, value);
     }
 }
