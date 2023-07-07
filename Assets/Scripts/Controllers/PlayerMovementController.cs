@@ -35,6 +35,8 @@ public class PlayerMovementController : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+
+        if (Utilities.IsAnyInput()) rb.velocity = Vector3.zero;
     }
 
     private void MyInput()
@@ -54,6 +56,7 @@ public class PlayerMovementController : MonoBehaviour
 
         rb.MovePosition(transform.position + (moveDirection.normalized * moveSpeed * Time.fixedDeltaTime));
 
+    
         transform.rotation = Quaternion.Lerp(transform.rotation, orientation.rotation, rotationSpeed * Time.deltaTime);
         //transform.rotation = orientation.rotation;
     }

@@ -6,6 +6,9 @@ public class SphereManager : MonoBehaviour
 {
     public Rigidbody rb;
 
+    public GameObject myCanvas;
+    public float myCanvasYoffset;
+
     //This will control behaviours based on what the player decides
     public enum SphereType
     {

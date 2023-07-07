@@ -15,5 +15,9 @@ public static class Utilities
         return Input.GetMouseButton(1);
     }
 
+    public static bool IsAnyInput()
+    {
+        return Input.anyKey;
+    }
 }
 

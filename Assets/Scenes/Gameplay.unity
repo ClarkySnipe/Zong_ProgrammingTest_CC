@@ -1411,7 +1411,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &785559100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1425,7 +1425,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 785559099}
+  myCanvas: {fileID: 227532616}
+  myCanvasYoffset: 1
   sphereType: 0
+  launchForce: 10
 --- !u!1 &837662494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,7 +1555,7 @@ GameObject:
   - component: {fileID: 949062221}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3619,7 +3622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &529424722992954281
 GameObject:
   m_ObjectHideFlags: 0
@@ -5191,6 +5194,7 @@ GameObject:
   - component: {fileID: 8921847036640979262}
   - component: {fileID: 8921847036640979261}
   - component: {fileID: 8921847036640979263}
+  - component: {fileID: 8921847036640979264}
   m_Layer: 0
   m_Name: Character_AncientWarrior_01
   m_TagString: Untagged
@@ -6375,7 +6379,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8829206159954834465}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2.06
   m_Direction: 1
@@ -6454,9 +6458,24 @@ MonoBehaviour:
   objectHolderTform: {fileID: 1762461486}
   currentObject: {fileID: 0}
   interactionDistance: 10
-  interactionRadius: 0.5
+  interactionRadius: 1
   interactionMask:
     serializedVersion: 2
     m_Bits: 64
-  objMoveSpeed: 5
+  objMoveSpeed: 7.5
   isHoldingObj: 0
+  dropDelay: 2
+--- !u!64 &8921847036640979264
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8829206159954834465}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300014, guid: be73df03abf02284486d1afabcf5d4fe, type: 3}
