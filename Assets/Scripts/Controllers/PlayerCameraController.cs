@@ -6,6 +6,8 @@ public class PlayerCameraController : MonoBehaviour
 {
     [SerializeField] float sensX;
     [SerializeField] float sensY;
+    [SerializeField] float minXRot;
+    [SerializeField] float mmaxXRot;
 
     [SerializeField] Transform orientation;
     [SerializeField] Transform position;
@@ -15,10 +17,14 @@ public class PlayerCameraController : MonoBehaviour
     [HideInInspector]
     [SerializeField] float yRotation;
 
+
+    private Camera mainCamera;
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        mainCamera = Camera.main;
     }
 
     private void LateUpdate()
@@ -30,7 +36,7 @@ public class PlayerCameraController : MonoBehaviour
 
         xRotation -= mouseY;
 
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, minXRot, mmaxXRot);
 
         transform.position = position.position;
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);

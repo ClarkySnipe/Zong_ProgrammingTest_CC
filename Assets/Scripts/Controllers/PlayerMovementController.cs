@@ -43,7 +43,9 @@ public class PlayerMovementController : MonoBehaviour
 
         //rb.AddForce(moveDirection.normalized * (moveSpeed * 100) * Time.deltaTime, ForceMode.Force);
 
-        rb.position = rb.position + (moveDirection.normalized * moveSpeed * Time.fixedDeltaTime);
+        //rb.position = rb.position + (moveDirection.normalized * moveSpeed * Time.fixedDeltaTime);
+
+        rb.MovePosition(transform.position + (moveDirection.normalized * moveSpeed * Time.fixedDeltaTime));
 
         transform.rotation = Quaternion.Lerp(transform.rotation, orientation.rotation, rotationSpeed * Time.deltaTime);
         //transform.rotation = orientation.rotation;
