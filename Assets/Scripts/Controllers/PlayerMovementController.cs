@@ -47,7 +47,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        Debug.Log(moveDirection.magnitude * moveSpeed);
+        //Debug.Log(moveDirection.magnitude * moveSpeed);
         bool isMoving = moveDirection.magnitude * moveSpeed > isMovingThreshold ? true : false;
 
         if (playerAnimator != null) playerAnimator.SetAnimatorBool("isMoving", isMoving);
