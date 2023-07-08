@@ -131,7 +131,7 @@ MonoBehaviour:
   myCanvas: {fileID: 0}
   myCanvasYoffset: 1
   sphereType: 0
-  launchForce: 10
+  launchForce: 30
   materials:
   - {fileID: 2100000, guid: 6d500531d877f09479e0e0c4827f064c, type: 2}
   - {fileID: 2100000, guid: 61ce4568724ff5c47b5f5dd141d2144f, type: 2}

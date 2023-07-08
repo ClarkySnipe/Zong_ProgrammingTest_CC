@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     public Transform ballRespawnPoint;
     public Transform playerRespawnPoint;
+
+    private bool RespawnCoroutineOn = false;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -34,7 +36,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
+        if (AudioManager.AM_instance != null)
+            AudioManager.AM_instance.PlayLevelMusic();
     }
 
     private void Update()
@@ -47,20 +50,33 @@ public class GameManager : MonoBehaviour
 
     public void ResetLevel()
     {
+        if (!RespawnCoroutineOn)
+            StartCoroutine(RestartLevelCoroutine());
+
+    }
+
+    IEnumerator RestartLevelCoroutine()
+    {
+        RespawnCoroutineOn = true;
+        yield return new WaitForSeconds(2);
+        
         GameObject tempPlayer = GameObject.FindGameObjectWithTag("Player");
 
         if (tempPlayer)
             tempPlayer.transform.root.position = playerRespawnPoint.position;
 
-        GameObject tempSphere = GameObject.Instantiate(gameSphere.gameObject, ballRespawnPoint);
+     
+        gameSphere.rb.velocity = Vector3.zero;
+        gameSphere.SelectSphereType(0);
+        gameSphere.transform.position = ballRespawnPoint.position;
 
-        if (tempSphere)
-            gameSphere = tempSphere.GetComponent<GameSphere>(); 
+        ChosenSphereType = 0;
 
+        RespawnCoroutineOn = false;
     }
     public void AddScore(int score)
     {
-        score += score;
+        Score += score;
     }
 
     public void OnSpherePickup()
@@ -81,6 +97,7 @@ public class GameManager : MonoBehaviour
         if (tempSphere)
             gameSphere = tempSphere.transform.GetComponent<GameSphere>();
 
+        ChosenSphereType = sphereType;
 
         gameSphere.SelectSphereType(sphereType);
     }
@@ -100,6 +117,10 @@ public class GameManager : MonoBehaviour
     {
         //disable game canvas and play audio
         MainMenuUI.SetActive(false);
+
+        if (AudioManager.AM_instance != null)
+            AudioManager.AM_instance.Play("Button", 0);
+
 
         Time.timeScale = 1;
 

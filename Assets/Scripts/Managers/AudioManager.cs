@@ -71,6 +71,11 @@ public class AudioManager : MonoBehaviour
             {
                 if (!s.source.isPlaying)
                 {
+                    if (s.isMusic)
+                        s.source.volume = GameManager.Instance.MusicVolume;
+                    if (s.isSFX)
+                        s.source.volume = GameManager.Instance.SFXVolume;
+
                     s.source.time = 0;
                     s.source.Play();
                     return;
@@ -153,6 +158,8 @@ public class AudioManager : MonoBehaviour
             s.source.loop = s.isLooping;
 
         }
+
+        AudioListener.volume = GameManager.Instance.MasterVolume;
     }
 
 }

@@ -7,6 +7,15 @@ public class SpherePickupMenuManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI scoreText;
 
+
+    private void Update()
+    {
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+    }
     private void OnEnable()
     {
         Time.timeScale = 0.0f;
@@ -14,6 +23,7 @@ public class SpherePickupMenuManager : MonoBehaviour
         Cursor.visible = true;
 
         scoreText.text = "Score : " + GameManager.Instance.Score;
+
     }
 
     private void OnDisable()

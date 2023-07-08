@@ -9,6 +9,9 @@ public class PlayerInteractionController : MonoBehaviour
     //If the player is to release RMB while holder the sphere, we will drop (or launch) it
 
     [SerializeField] Transform objectHolderTform;
+    [SerializeField] Transform AttackSpawnPointTForm;
+    [SerializeField] GameObject[] AttackParticlesVFX;
+    [SerializeField] GameObject CurrentAttackParticle;
     [SerializeField] GameSphere currentObject;
 
     [Header("Casting Values")]
@@ -33,10 +36,31 @@ public class PlayerInteractionController : MonoBehaviour
         rayOrigin = new Vector3(Screen.width / 2, Screen.height / 2, 0);
 
         timeAtPickup = 0;
+
+        DisableAllParticles();
+
+
+
     }
 
     private void Update()
     {
+        #region ATTACKS - DEPLOYING VFX
+
+        if (Utilities.IsLeftClicking() && AttackParticlesVFX[GameManager.Instance.ChosenSphereType].activeInHierarchy == false)
+        {
+            AttackParticlesVFX[GameManager.Instance.ChosenSphereType].SetActive(true);
+            AttackParticlesVFX[GameManager.Instance.ChosenSphereType].transform.rotation = transform.root.rotation;
+
+        }
+        else if (!Utilities.IsLeftClicking())
+        {
+            DisableAllParticles();
+        }
+        #endregion
+
+        #region SPHERE INTERACTION
+
         if (Utilities.IsRightClicking()) //if we are right clicking
         {
             if (isHoldingObj && Time.time > timeAtPickup + dropDelay) //if we are holding an object and we right click - we want to drop it
@@ -73,6 +97,8 @@ public class PlayerInteractionController : MonoBehaviour
             else
                 currentObject.transform.position = objectHolderTform.position;
         }
+
+        #endregion
     }
 
     private Vector3 PerformRayCast()
@@ -141,6 +167,22 @@ public class PlayerInteractionController : MonoBehaviour
 
     }
 
+    private void ToggleAttackParticles()
+    {
+        for(int i = 0; i < AttackParticlesVFX.Length; i++)
+        {
+            if (GameManager.Instance.ChosenSphereType != i) //make sure we dont have the wrong particle active
+            {
+                AttackParticlesVFX[i].SetActive(false);
+            }
+        }
+    }
+
+    private void DisableAllParticles()
+    {
+        foreach (GameObject go in AttackParticlesVFX)
+            go.SetActive(false);
+    }
 
     private void OnDrawGizmos()
     {

@@ -22,6 +22,10 @@ public class WorldCanvas : MonoBehaviour
     [SerializeField] float alphaIncreaseValue = 0;
     [SerializeField] float fillValue = 0;
     [SerializeField] float fillRate = 0;
+    [SerializeField] float lifeTime = 10;
+    [SerializeField] float timeAtSpawn = 10;
+    [SerializeField] bool useLifeTime = false;
+
 
 
     private bool isActive = false; //if a player comes within a certain distance, we activate this canvas
@@ -32,16 +36,31 @@ public class WorldCanvas : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+        timeAtSpawn = Time.time;
+
+        isActive = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        HandelUIFading(CheckDistance());
+        if (isActive)
+        {
+            HandelUIFading(CheckDistance());
 
-        //we want our gamecanvas to be looking at the player when its active
-        Quaternion targetRotation = Quaternion.LookRotation(playerTForm.position - transform.position);
-        
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            //we want our gamecanvas to be looking at the player when its active
+            Quaternion targetRotation = Quaternion.LookRotation(playerTForm.position - transform.position);
 
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            if (Time.time > timeAtSpawn + lifeTime && useLifeTime)
+            {
+                gameObject.SetActive(false);
+                isActive = false;
+            }
+        }
     }
 
     private bool CheckDistance()

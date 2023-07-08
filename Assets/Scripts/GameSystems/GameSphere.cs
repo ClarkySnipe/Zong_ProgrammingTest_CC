@@ -45,6 +45,8 @@ public class GameSphere : SphereManager
         if (!renderer)
             renderer = transform.GetComponent<MeshRenderer>();
 
+        sphereType = (SphereType)value;
+
         renderer.material = materials[value];
 
     }
