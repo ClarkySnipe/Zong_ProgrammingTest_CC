@@ -42,6 +42,9 @@ public class GameSphere : SphereManager
     public override void SelectSphereType(int value)
     {
         Debug.Log("Setting material to mat indx : " + value);
+        if (!renderer)
+            renderer = transform.GetComponent<MeshRenderer>();
+
         renderer.material = materials[value];
 
     }

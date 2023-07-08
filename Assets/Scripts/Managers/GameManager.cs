@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public GameObject SpherePickupCanvas;
 
     public GameSphere gameSphere;
+
+    public Transform ballRespawnPoint;
+    public Transform playerRespawnPoint;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -29,6 +32,11 @@ public class GameManager : MonoBehaviour
         Score = 0;
     }
 
+    private void Start()
+    {
+        
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -37,6 +45,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ResetLevel()
+    {
+        GameObject tempPlayer = GameObject.FindGameObjectWithTag("Player");
+
+        if (tempPlayer)
+            tempPlayer.transform.root.position = playerRespawnPoint.position;
+
+        GameObject tempSphere = GameObject.Instantiate(gameSphere.gameObject, ballRespawnPoint);
+
+        if (tempSphere)
+            gameSphere = tempSphere.GetComponent<GameSphere>(); 
+
+    }
     public void AddScore(int score)
     {
         score += score;
@@ -56,6 +77,10 @@ public class GameManager : MonoBehaviour
     public void OnWeaponButtonPress(int sphereType)
     {
         //ChosenSphereType = sphereType;
+        GameObject tempSphere = GameObject.FindGameObjectWithTag("GameSphere");
+        if (tempSphere)
+            gameSphere = tempSphere.transform.GetComponent<GameSphere>();
+
 
         gameSphere.SelectSphereType(sphereType);
     }
