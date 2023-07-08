@@ -21,8 +21,6 @@ public class PlayerCameraController : MonoBehaviour
     private Camera mainCamera;
     private void Start()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
 
         mainCamera = Camera.main;
     }

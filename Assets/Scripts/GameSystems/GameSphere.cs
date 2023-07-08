@@ -5,12 +5,26 @@ using UnityEngine;
 public class GameSphere : SphereManager
 {
     [SerializeField] float launchForce;
+
+    [SerializeField] Material[] materials;
+
+    [SerializeField] MeshRenderer renderer;
+
+    private void Start()
+    {
+        renderer = transform.GetComponent<MeshRenderer>();
+    }
     public override void OnSpherePickup()
     {
         Debug.Log("Sphere has been picked up - disabling world canvas");
         
         myCanvas.SetActive(false);
-        
+
+        GameManager.Instance.OnSpherePickup();
+
+
+
+
     }
     public override void OnSphereDrop()
     {
@@ -27,7 +41,9 @@ public class GameSphere : SphereManager
 
     public override void SelectSphereType(int value)
     {
-        base.SelectSphereType(value);
+        Debug.Log("Setting material to mat indx : " + value);
+        renderer.material = materials[value];
+
     }
 
     private void OnCollisionEnter(Collision collision)
